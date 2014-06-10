@@ -69,5 +69,6 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
             }
         }
     }
-grunt.loadNpmTasks('grunt-contrib-watch');
+    
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
