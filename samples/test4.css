@@ -1,0 +1,28 @@
+﻿
+html,body{width:100%;height:100%;margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;}
+.header,.body,.footer{width:100%;}
+.footer ul li{width:33.3%;height:100%;float:left;}
+.header{background:red;}
+.body{background:yellow;}
+.footer{background:blue;height:200px;}
+.footer ul{height:100%;}
+
+
+@media (landscape broad:640px) and (broad:768px) and (broad:1024px) and (broad:1200px){
+	.header{height:60px;}
+	.header .logo{width:100px;background-position:20px 60px;}
+	.footer{height:200px;margin-top:20px;position:relative;font-family:"微软雅黑";}
+	.header{position:relative;font-family:"sans-serif";}
+	.footer ul li{height:20%;}
+}
+
+@media (narrow:1024px) and (narrow:640px) and (narrow:480px) and (narrow:320px){
+	.header{height:60px;bottom:0;left:0;position:absolute;}
+	.footer{position:absolute;height:100px;margin-top:10px;top:0;left:0;}
+	.footer ul li{clear:both;float:none;}
+}
+
+@media (max-width:640px){
+	.header{height:80px;}
+}

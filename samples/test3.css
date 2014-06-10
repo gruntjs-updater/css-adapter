@@ -1,0 +1,11 @@
+/*
+ * test stylesheet
+ */
+@media (broad:1200px) and (broad:1024px) and (landscape broad:640px){
+	.margin{margin:0 20px;}
+	.top{top:-40px;}
+}
+@media (narrow:640px){
+	.header{height:60px;}
+	.left{left:-20px;}
+}
