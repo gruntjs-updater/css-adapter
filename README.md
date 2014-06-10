@@ -72,3 +72,33 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
     
     grunt.loadNpmTasks('grunt-contrib-watch');
 
+##Settings
+    "compile"(""|"all"|"standard"|"broad"|"narrow"):Debug and easy to view the results,
+    "dpi":{//about dpi set,minimum width ,maximum width, and for the specific dpi value
+        "min-width":
+        "max-width":
+        "standard":
+        "broad":{
+            "1200":{
+                
+            }
+        },
+        "narrow":{
+            "320":{
+                
+            }
+        }
+    },
+    "units":{//for the digit units,like px,em, and %
+        "px":20,
+        "em":0.5
+    },
+    "others":{//
+        "margin-top":10
+    },
+    "mins":{
+        "font-weight":100
+    },
+    "maxs":{
+        "font-weight":900
+    }
