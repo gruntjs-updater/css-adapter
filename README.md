@@ -36,7 +36,8 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
             },
             "maxs":{
                 
-            }
+            },
+            "prefix":['-webkit-','-moz-','-ms-','-o-']
         },
         /*dist:{
             src:["samples/test4.css"],
