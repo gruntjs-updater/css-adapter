@@ -1,7 +1,7 @@
 {
   "name": "css-adapter",
   "description": "css adapter, to handle different adaptation of the equipment.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/donghanji/css-adapter",
   "author": {
     "name": "donghanji",

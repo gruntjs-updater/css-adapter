@@ -31,7 +31,8 @@ module.exports = function(grunt) {
 				},
 				"maxs":{
 					
-				}
+				},
+                "prefix":['-webkit-','-moz-','-ms-','-o-']
             },
 			/*dist:{
 				src:["samples/test4.css"],
