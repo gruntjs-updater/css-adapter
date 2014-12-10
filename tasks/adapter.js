@@ -8,9 +8,8 @@
 var fs=require('fs')
 	,path=require('path');
 
-var M_FREFIX=['-webkit-','-moz-','-ms-','']
-,M_K_FREFIX=['@-webkit-','@-moz-','@-ms-','']
-,M_WIDTH={
+
+var M_WIDTH={
 	'broad':'min-width',
 	'narrow':'max-width'
 }
@@ -58,8 +57,19 @@ function adapter(grunt,files,configs){
 		,mode=configs.compile||''
 		,mins=E({},M_MINS,configs.mins)
 		,maxs=E({},M_MAXS,configs.maxs)
+        ,prefix=configs.prefix||[]
 		;
-	function R(attr,value,unit){
+	
+    var M_PREFIX=prefix.concat('');//prefix,like -webkit
+    var M_K_PREFIX=[];
+    var i=0;
+    var len=prefix.length;
+    for(;i<len;i++){
+        M_K_PREFIX.push('@'+prefix[i]);
+    }
+    M_K_PREFIX.push('');//prefix for keyframe,like @-webkit-
+    
+    function R(attr,value,unit){
 		var minv=parseFloat(mins[attr],10)
 			,maxv=parseFloat(maxs[attr],10)
 			,handle=M_HANDINGS[attr]
@@ -125,7 +135,7 @@ function adapter(grunt,files,configs){
             
             var kc=['keyframes',a1,a2].join(' ');//keysframes name {}
             
-            return M_K_FREFIX.join(kc)+a0;
+            return M_K_PREFIX.join(kc)+a0;
         });
     };
 	function V(value){
@@ -138,7 +148,7 @@ function adapter(grunt,files,configs){
 				;
 			if(M_ADAPTER_ATTR_VALUE[a1]){
                 if(M_ADAPTER_ATTR_VALUE[a1] === a2){//like display:box->display:-webkit-box;
-                    var arr=[].concat(M_FREFIX)
+                    var arr=[].concat(M_PREFIX)
                         ,r1=[]
                         ,r2=[];
                     arr.pop();
@@ -161,7 +171,7 @@ function adapter(grunt,files,configs){
                 return a0;
             }
 			
-			return M_FREFIX.join(a1+':'+a2+';')+a0;
+			return M_PREFIX.join(a1+':'+a2+';')+a0;
 		});
 	};
 
