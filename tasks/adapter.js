@@ -9,6 +9,7 @@ var fs=require('fs')
 	,path=require('path');
 
 var M_FREFIX=['-webkit-','-moz-','-ms-','']
+,M_K_FREFIX=['@-webkit-','@-moz-','@-ms-','']
 ,M_WIDTH={
 	'broad':'min-width',
 	'narrow':'max-width'
@@ -33,6 +34,7 @@ var M_FREFIX=['-webkit-','-moz-','-ms-','']
 }
 ,M_REG={
 	COMMENT:/\/\*[\S\s]*?\*\//g,
+    KEYFRAMES:/@keyframes\s+(\w+)\s*(\{[^@]*\}\s*\})/gim,
 	MEDIA:/@media\s+\(\s*(?:landscape|portrait)?\s*(?:broad|narrow)\s*\:\s*(?:\d+)px\)\s*(?:and\s+\(\s*(?:landscape|portrait)?\s*(?:broad|narrow)\s*\:\s*(?:\d+)px\)\s*){0,}\{([^@\(\)]*)\}\s*\}/gim,
 	RATIO:/\s*\(\s*(landscape|portrait)?\s*(broad|narrow)\s*\:\s*(\d+)px\s*\)\s*/gim,
 	STYLESHEET:/\s*([^\{\}]*)\s*\{\s*([^\}]*)\s*\}/gim,
@@ -114,6 +116,18 @@ function adapter(grunt,files,configs){
 		
 		return true;
 	};
+    function K(value){
+        return value.replace(M_REG.KEYFRAMES,function(){
+            var args=arguments;
+            var a0=args[0];
+            var a1=args[1];
+            var a2=args[2];
+            
+            var kc=['keyframes',a1,a2].join(' ');//keysframes name {}
+            
+            return M_K_FREFIX.join(kc)+a0;
+        });
+    };
 	function V(value){
 		
 		return value.replace(M_REG.ADAPTER,function(){
@@ -178,7 +192,7 @@ function adapter(grunt,files,configs){
 			
 			return grunt.log.warn('Destination not written because CSS was empty.');
 		}
-		
+        
 		//browser adapter
 		str=V(str);
 		
@@ -369,7 +383,10 @@ function adapter(grunt,files,configs){
 			
 			return res.join('');
 		});
-		
+        
+		//keyframes adapter
+		str=K(str);
+        
 		return grunt.file.write(f.dest,str);
 	});
 };
