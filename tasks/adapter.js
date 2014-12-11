@@ -13,7 +13,7 @@ var M_WIDTH={
 	'broad':'min-width',
 	'narrow':'max-width'
 }
-,M_ADAPTER_ATTR=['border-image','border-radius','box-shadow','background-origin','background-clip','background-size','display','box-sizing','box-pack','box-flex','transform','animation','transition']
+,M_ADAPTER_ATTR=['border-image','border-radius','box-shadow','background-origin','background-clip','background-size','display','box-sizing','box-pack','box-flex','transform','transform-origin','animation','transition']
 ,M_ADAPTER_ATTR_VALUE={
 	'display':'box'
 }
@@ -39,8 +39,7 @@ var M_WIDTH={
 	STYLESHEET:/\s*([^\{\}]*)\s*\{\s*([^\}]*)\s*\}/gim,
 	CSS:/\s*(\w+-?\w*)\s*:((?:\s*(?:-?\d+(?:\.\d+)?)(?:px|%|em)?\s*){1,4})/gim,
 	CSS2:/\s*(\w+-?\w*)\s*:((?:\s*(?:-?\d+(?:\.\d+)?)(?:px|%|em)?\s*){1,4};?)/gim,
-	VALUE:/(-?\d+(?:\.\d+)?)(px|%|em)?/gim,
-	ADAPTER:new RegExp('('+M_ADAPTER_ATTR.join('|')+')\s*\:\s*([^;\}]*)\s*(?:;|\})','gim')
+	VALUE:/(-?\d+(?:\.\d+)?)(px|%|em)?/gim
 };
 
 M_MINS_ATTR.forEach(function(k,i){
@@ -57,17 +56,27 @@ function adapter(grunt,files,configs){
 		,mode=configs.compile||''
 		,mins=E({},M_MINS,configs.mins)
 		,maxs=E({},M_MAXS,configs.maxs)
-        ,prefix=configs.prefix||[]
+        ,prefixs=configs.prefixs||[]
+        ,adapters=configs.adapters||{}
+        ,attrs=adapters.attrs
+        ,vals=adapters.vals
 		;
 	
-    var M_PREFIX=prefix.concat('');//prefix,like -webkit
+    var M_PREFIX=prefixs.concat('');//prefixs,like -webkit
     var M_K_PREFIX=[];
     var i=0;
-    var len=prefix.length;
+    var len=prefixs.length;
     for(;i<len;i++){
-        M_K_PREFIX.push('@'+prefix[i]);
+        M_K_PREFIX.push('@'+prefixs[i]);
     }
-    M_K_PREFIX.push('');//prefix for keyframe,like @-webkit-
+    M_K_PREFIX.push('');//prefixs for keyframe,like @-webkit-
+    
+    //
+    M_ADAPTER_ATTR=attrs === undefined ? [] : M_ADAPTER_ATTR;
+    M_ADAPTER_ATTR_VALUE=vals === undefined ? [] : M_ADAPTER_ATTR_VALUE;
+    
+    //
+    M_REG.ADAPTER=new RegExp('('+M_ADAPTER_ATTR.join('|')+')\s*\:\s*([^;\}]*)\s*(?:;|\})','gim');
     
     function R(attr,value,unit){
 		var minv=parseFloat(mins[attr],10)

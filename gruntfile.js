@@ -32,7 +32,13 @@ module.exports = function(grunt) {
 				"maxs":{
 					
 				},
-                "prefix":['-webkit-','-moz-','-ms-','-o-']
+                "prefixs":['-webkit-','-moz-','-ms-','-o-'],
+                'adapters':{
+                    'attrs':['border-image','border-radius','box-shadow','background-origin','background-clip','background-size','display','box-sizing','box-pack','box-flex','transform','transform-origin','animation','transition'],
+                    'vals':{
+                        'display':'box'
+                    }
+                }
             },
 			/*dist:{
 				src:["samples/test4.css"],

@@ -37,7 +37,13 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
             "maxs":{
                 
             },
-            "prefix":['-webkit-','-moz-','-ms-','-o-']
+            "prefixs":['-webkit-','-moz-','-ms-','-o-'],
+            'adapters':{
+                'attrs':['border-image','border-radius','box-shadow','background-origin','background-clip','background-size','display','box-sizing','box-pack','box-flex','transform','transform-origin','animation','transition'],
+                'vals':{
+                    'display':'box'
+                }
+            }
         },
         /*dist:{
             src:["samples/test4.css"],
@@ -102,4 +108,11 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
     },
     "maxs":{
         "font-weight":900
+    },
+    "prefixs":['-webkit-','-moz-','-ms-','-o-'],
+    'adapters':{
+        'attrs':['border-radius'],//-webkit-border-radius:10px;-moz-border-radius:10px;-ms-border-radius:10px;-o-border-radius:10px;
+        'vals':{
+            'display':'box'//display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;
+        }
     }
