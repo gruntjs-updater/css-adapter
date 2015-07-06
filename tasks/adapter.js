@@ -104,7 +104,7 @@ function adapter(grunt,files,configs){
             return 0;
         }
         
-        return scale*value||0;
+        return (scale*value)||0;
     };
 	function E(){
 		var options,
@@ -155,7 +155,9 @@ function adapter(grunt,files,configs){
 				,a1=args[1]
 				,a2=args[2]
 				;
-			if(M_ADAPTER_ATTR_VALUE[a1]){
+			
+            if(M_ADAPTER_ATTR_VALUE[a1]){
+                
                 if(M_ADAPTER_ATTR_VALUE[a1] === a2){//like display:box->display:-webkit-box;
                     var arr=[].concat(M_PREFIX)
                         ,r1=[]
@@ -246,10 +248,11 @@ function adapter(grunt,files,configs){
 					
 					continue;
 				}else{
-					if(r2 === 'narrow' && r3 === standard){//remove narrow standard dpi
+					//if(r2 === 'narrow' && r3 === standard){//remove narrow standard dpi
+                    /*if(r2 === 'narrow' && r3 === standard){//remove narrow standard dpi
 						
 						continue;
-					}
+					}*/
 				}
 				
 				var css=[];
@@ -323,8 +326,13 @@ function adapter(grunt,files,configs){
 						
 					css.push(c1);
 					css.push('{');
+                    
 					var o=c2.replace(M_REG.CSS2,'');
-					if(o.trim()){
+                    //like .class{-webkit--os--ms--}
+                    if(o === M_PREFIX.join('')){
+                        rm=[];
+                    }
+					if(o.trim() && o !== M_PREFIX.join('')){
 						var t=[c1,'{',o,'}']//selector:{key:value;}
 							,repeat=tm.join('').indexOf(t.join('')) === -1//don't repeat
 							;
@@ -332,6 +340,7 @@ function adapter(grunt,files,configs){
 							
 							rm=rm.concat(t);
 						}
+                        
 						if(tm.length && repeat){
 							
 							tm=tm.concat(t);
@@ -345,10 +354,9 @@ function adapter(grunt,files,configs){
 						var a1=a[1]//key
 							,a2=a[2]//value
 							;
-						css.push(a1);
+                        css.push(a1);
 						css.push(':');
 						a2=a2.trim();
-                        
 						var v=null;
 						while(v=M_REG.VALUE.exec(a2)){
 							var v1=v[1]//value,digit
@@ -381,7 +389,6 @@ function adapter(grunt,files,configs){
 						css.push(';');
 					}
 					css.push('}');
-					
 					if(!b){//now digit value
 						css.splice(css.length-3,3);//remove like .class{}
 					}
@@ -390,6 +397,7 @@ function adapter(grunt,files,configs){
 				css.push('}');
 				res.push(css.join(''));
 			}
+            
 			if(rm.length){
 				rm.push('}');
 			}
@@ -399,10 +407,9 @@ function adapter(grunt,files,configs){
 			}
 			rm=rm.concat(tm);
 			res.push(rm.join(''));
-			
+            
 			return res.join('');
 		});
-        
 		//keyframes adapter
 		str=K(str);
         
