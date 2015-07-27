@@ -278,7 +278,7 @@ function adapter(grunt,files,configs){
 			}
 		}
 
-		return css.join('');
+		return css;
 	};
 	//
 	function px2rem(str){
@@ -393,7 +393,7 @@ function adapter(grunt,files,configs){
 		        			region_str.push('px){');
 
 		        			var styles=to_styles(str_1,'broad',r3,scale,'','',normalPXWidth);
-		        			region_str.push(styles);
+		        			region_str.push(styles.join(''));
 		        			region_str.push('}');
 		        		}
 		        	}
@@ -546,9 +546,8 @@ function adapter(grunt,files,configs){
 					}
 				}
 				
-				var s=null;
-				var res=to_styles(style,r2,r3,0,tm,rm);
-				
+				var s=to_styles(style,r2,r3,0,tm,rm);
+				css=css.concat(s);
 				css.push('}');
 				res.push(css.join(''));
 			}
