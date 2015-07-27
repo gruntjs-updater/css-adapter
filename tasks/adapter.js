@@ -241,7 +241,7 @@ function adapter(grunt,files,configs){
 						,v2=v[2]//unit
 						;
 					if(px && v2 === 'rem'){
-						console.log(px,scale,v1,v2);
+						
 						scale=scale*px;
 					}
 					scale=scale||(r3-standard)/standard;
@@ -283,7 +283,7 @@ function adapter(grunt,files,configs){
 	//
 	function px2rem(str){
 		var sp=str.split(M_REG.NORMALMEDIA);
-        //console.log(sp.length);
+        
         //
         if(sp && sp.length >1){
         	var str_1=sp[0];
@@ -396,9 +396,6 @@ function adapter(grunt,files,configs){
 		        			region_str.push(styles);
 		        			region_str.push('}');
 		        		}
-		        		//str=[regions.join(''),str].join('');
-		        		//console.log(region_str.join(''));
-		        		//str=region_str.join('')+str;
 		        	}
 
 		        	css=[region_str.join(''),css.join('')];
