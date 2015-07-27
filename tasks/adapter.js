@@ -382,9 +382,10 @@ function adapter(grunt,files,configs){
 					}
 					css.push('}');
 
-
+					//
+					var region_str=[];
 					if(regions && regions.length){
-		        		var region_str=[];
+		        		
 		        		for(var i=0;i<regions.length;i++){
 		        			var r3=parseInt(regions[i]);
 		        			var scale=r3/normalWidth;
