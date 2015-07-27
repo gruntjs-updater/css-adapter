@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 				"maxs":{
 					
 				},
+				"regions":[640,320],
                 "prefixs":['-webkit-','-moz-','-ms-','-o-'],
                 'adapters':{
                     'attrs':['border-image','border-radius','box-shadow','background-origin','background-clip','background-size','display','box-sizing','box-pack','box-flex','transform','transform-origin','animation','transition'],
@@ -46,7 +47,7 @@ module.exports = function(grunt) {
 			}*/
 			dist:{
 				files:{
-					"samples/test4.adapter.css":["samples/test4.css"]
+					"samples/base.adapter.css":["samples/base.css"]
 				}
 			}/**/
 			/*dist:{
