@@ -100,6 +100,10 @@ function adapter(grunt,files,configs){
 		return value;
 	};
     function H(value,scale,rule,unit){
+    	if(rule === 'z-index'){
+
+    		return value;
+    	}
         value=parseFloat(value,10);
         
         if(unit === '%'){//%,don't deal with
@@ -347,14 +351,17 @@ function adapter(grunt,files,configs){
 									;
 								var value=value ? value : v1;
 								var scale=v2 === 'rem' ? 1 :normal_scale;
-								value=H(v1,scale,c2,v2);
+								value=H(v1,scale,a1,v2);
 								if(v2 === '%'){
 
 									continue;
 								}
 								if(value){
 									css.push(value);
-									css.push('rem');
+									//
+									if(v2){
+										css.push('rem');
+									}
 								}else{
 									css.push(value);
 								}
